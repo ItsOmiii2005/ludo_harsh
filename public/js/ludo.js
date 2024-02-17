@@ -1,13 +1,25 @@
 let socket = io(window.location.href.substring(0, window.location.href.length - 7));
 
+// user
+let user = {
+    player_1: "hello world programmer",
+    player_2: "Omanand",
+    player_3: "Akshay",
+    player_4: "Prathmesh",
+}
+
 const room_code = window.location.href.substring(window.location.href.length - 6);
-const USERNAMES = ['Green', 'Red', 'Blue', 'Yellow'];
+const USERNAMES = [user.player_1, user.player_2, user.player_3, user.player_4];
 const PIECES = [];
 const colors = ["green", "red", "blue", "yellow"];
 let MYROOM = [];
 let myid = -1;
 let chance = Number(-1);
 var PLAYERS = {};
+
+// if user creaets the mcq app then it loss 10 tokens
+const assignedTokens = 70;
+console.log(assignedTokens);
 
 var canvas = document.getElementById('theCanvas');
 var ctx = canvas.getContext('2d');
@@ -731,7 +743,51 @@ const mcqQuestions = [
 ];
 
 
+// async function displayQuestion (callback) {
+//         try{
+//             const resp = await fetch(`https://the-trivia-api.com/v2/questions?limit=1&difficulties=easy`)
+//             var q= await resp.json();
+//             console.log(q[0]);
+//             const question = q[0].question["text"];
+//             let answerOption = q[0].incorrectAnswers;
+//           await  answerOption.push(q[0].correctAnswer);
+
+//           console.log(question);
+//           console.log(answerOption);
+
+//             // const options = q[0].incorrectAnswers.push(q.correctAnswer);
+//             // console.log(options);
+//             // Show a modal or alert with the question and options
+//             let answer = window.prompt(`${question}\nOptions: ${answerOption.join(", ")}`);
+            
+//             // Check if the user's answer is correct
+//             console.log("answer is correct", q[0].correctAnswer);
+//             let answercorrect = q[0].correctAnswer;
+//             const isCorrect = (answer !== null) && (answer.toLowerCase() === answercorrect.toLowerCase());
+        
+//             // Execute the callback with the user's answer
+//             callback(isCorrect);
+//         }catch(err){
+//             console.log(err);
+//         }
+   
+//     // const randomIndex = Math.floor(Math.random() * mcqQuestions.length);
+//     // const randomQuestion = mcqQuestions[randomIndex];
+
+
+//     // Extract question and options     
+    
+
+   
+// }
+
+
+
 function displayQuestion(callback) {
+    // Replace this with your actual question and options
+    // let question = "What is the capital of France?";
+    // let options = ["Paris", "London", "Berlin", "Madrid"];
+
     const randomIndex = Math.floor(Math.random() * mcqQuestions.length);
     const randomQuestion = mcqQuestions[randomIndex];
 
@@ -739,38 +795,14 @@ function displayQuestion(callback) {
     const question = randomQuestion.question;
     const options = randomQuestion.options;
 
+    // console.log(question1)
     // Show a modal or alert with the question and options
     let answer = window.prompt(`${question}\nOptions: ${options.join(", ")}`);
-    
-    // Check if the user's answer is correct
-    const isCorrect = (answer !== null) && (answer.toLocaleLowerCase() === randomQuestion.correctAnswer.toLocaleLowerCase());
+    const isCorrect = answer.toLocaleLowerCase() === options[0].toLocaleLowerCase();
 
     // Execute the callback with the user's answer
     callback(isCorrect);
 }
-
-
-
-// function displayQuestion(callback) {
-//     // Replace this with your actual question and options
-//     // let question = "What is the capital of France?";
-//     // let options = ["Paris", "London", "Berlin", "Madrid"];
-
-//     const randomIndex = Math.floor(Math.random() * mcqQuestions.length);
-//     const randomQuestion = mcqQuestions[randomIndex];
-
-//     // Extract question and options
-//     const question = randomQuestion.question;
-//     const options = randomQuestion.options;
-
-//     // console.log(question1)
-//     // Show a modal or alert with the question and options
-//     let answer = window.prompt(`${question}\nOptions: ${options.join(", ")}`);
-//     const isCorrect = answer.toLocaleLowerCase() === options[0].toLocaleLowerCase();
-
-//     // Execute the callback with the user's answer
-//     callback(isCorrect);
-// }
 
 
 

@@ -3,6 +3,7 @@ const express = require('express');
 const {createServer} = require('http');
 const socketIO = require('socket.io');
 
+
 const {PORT} = require('./config/config');
 
 const rootRouter = require('./routes/rootRouter')
@@ -28,6 +29,9 @@ let nsp = io.of('/ludo');
 
 nsp.on('connection',(socket)=>{
     console.log('A User has connected to the game');
+
+
+
     socket.on('fetch',(data,cb)=>{
         try{
             let member_id = generate_member_id(socket.id,data);

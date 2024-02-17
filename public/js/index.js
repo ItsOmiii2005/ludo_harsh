@@ -1,7 +1,6 @@
 let tokens = document.getElementById("tkIndicator");
 tokens.innerHTML = 70;
 
-//modal
 function register(){
     let modal = document.getElementById("myModal");
     let span = document.getElementsByClassName("close")[0];

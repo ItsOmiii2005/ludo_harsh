@@ -2,13 +2,15 @@ let socket = io(
   window.location.href.substring(0, window.location.href.length - 7)
 );
 
+
 //modal
-document.body.onload = function() {
-    topic = window.prompt("Please Provide the Topic Name to provide question on that topic");
-    topic ? cat = topic : console.log("Please provide the Topic Name to provide question on that topic");  
+document.body.onload = function () {
+  topic = window.prompt("Please Provide the Topic Name to provide question on that topic");
+  topic ? cat = topic : console.log("Please provide the Topic Name to provide question on that topic");
 }
 
 // user
+
 let user = {
   player_1: "hello world programmer",
   player_2: "Omanand",
@@ -28,8 +30,8 @@ let chance = Number(-1);
 var PLAYERS = {};
 
 // if user creaets the mcq app then it loss 10 tokens
-const assignedTokens = 70;
-console.log(assignedTokens);
+// const assignedTokens = 70;
+// console.log(assignedTokens);
 
 var canvas = document.getElementById("theCanvas");
 var ctx = canvas.getContext("2d");
@@ -422,18 +424,17 @@ socket.on("connect", function () {
     resume(data.id);
     data.id == data.click
       ? outputMessage(
-          { id: data.id, msg: `Resumed the game without ${USERNAMES[id]}` },
-          5
-        )
+        { id: data.id, msg: `Resumed the game without ${USERNAMES[id]}` },
+        5
+      )
       : outputMessage(
-          {
-            id: data.click,
-            msg: `${USERNAMES[data.click]} has resumed the game without ${
-              USERNAMES[data.id]
+        {
+          id: data.click,
+          msg: `${USERNAMES[data.click]} has resumed the game without ${USERNAMES[data.id]
             }`,
-          },
-          5
-        );
+        },
+        5
+      );
   });
 
   socket.on("wait", function (data) {
@@ -447,9 +448,9 @@ socket.on("connect", function () {
   socket.on("rolled-dice", function (data) {
     Number(data.id) != myid
       ? outputMessage(
-          { Name: USERNAMES[data.id], Num: data.num, id: data.id },
-          1
-        )
+        { Name: USERNAMES[data.id], Num: data.num, id: data.id },
+        1
+      )
       : outputMessage({ Name: "you", Num: data.num, id: data.id }, 1);
   });
 
@@ -495,11 +496,9 @@ function outputMessage(anObject, k) {
   ) {
     const div = document.createElement("div");
     div.classList.add("message");
-    div.innerHTML = `<p><strong>&#9733;  <span id="color-message-span1"style="text-shadow: 0 0 4px ${
-      colors[anObject.id]
-    };">${anObject.Name}</span></strong><span id="color-message-span2"> got a ${
-      anObject.Num
-    }</span></p>`;
+    div.innerHTML = `<p><strong>&#9733;  <span id="color-message-span1"style="text-shadow: 0 0 4px ${colors[anObject.id]
+      };">${anObject.Name}</span></strong><span id="color-message-span2"> got a ${anObject.Num
+      }</span></p>`;
     msgBoard.appendChild(div);
   } else if (
     k === 0 &&
@@ -511,11 +510,9 @@ function outputMessage(anObject, k) {
   ) {
     const div = document.createElement("div");
     div.classList.add("messageFromServer");
-    div.innerHTML = `<p>&#8605;  <span id="color-message-span1"style="text-shadow: 0 0 4px ${
-      colors[anObject.id]
-    };">${
-      anObject.Name
-    }</span><span id="color-message-span2"> entered the game</span></p>`;
+    div.innerHTML = `<p>&#8605;  <span id="color-message-span1"style="text-shadow: 0 0 4px ${colors[anObject.id]
+      };">${anObject.Name
+      }</span><span id="color-message-span2"> entered the game</span></p>`;
     msgBoard.appendChild(div);
   } else if (k === 3) {
     const div = document.createElement("div");
@@ -525,27 +522,22 @@ function outputMessage(anObject, k) {
   } else if (k === 4) {
     const div = document.createElement("div");
     div.classList.add("messageFromServer");
-    div.innerHTML = `<p><span id="color-message-span2">Its </span><span id="color-message-span1"style="text-shadow: 0 0 4px ${
-      colors[anObject.id]
-    };">${
-      anObject.Name
-    }</span><span id="color-message-span2"> chance!!</span></p>`;
+    div.innerHTML = `<p><span id="color-message-span2">Its </span><span id="color-message-span1"style="text-shadow: 0 0 4px ${colors[anObject.id]
+      };">${anObject.Name
+      }</span><span id="color-message-span2"> chance!!</span></p>`;
     msgBoard.appendChild(div);
   } else if (k === 5) {
     const div = document.createElement("div");
     div.classList.add("messageFromServer");
-    div.innerHTML = `<span id="color-message-span2" style="text-shadow: 0 0 4px ${
-      colors[anObject.id]
-    };">${anObject.msg}!!</span>`;
+    div.innerHTML = `<span id="color-message-span2" style="text-shadow: 0 0 4px ${colors[anObject.id]
+      };">${anObject.msg}!!</span>`;
     msgBoard.appendChild(div);
   } else if (k === 6) {
     const div = document.createElement("div");
     div.classList.add("messageFromServer");
-    div.innerHTML = `<p>&#8605;  <span id="color-message-span1"style="text-shadow: 0 0 4px ${
-      colors[anObject.id]
-    };">${
-      anObject.Name
-    }</span><span id="color-message-span2"> just left the game</span></p>`;
+    div.innerHTML = `<p>&#8605;  <span id="color-message-span1"style="text-shadow: 0 0 4px ${colors[anObject.id]
+      };">${anObject.Name
+      }</span><span id="color-message-span2"> just left the game</span></p>`;
     msgBoard.appendChild(div);
   }
   msgBoard.scrollTop = msgBoard.scrollHeight - msgBoard.clientHeight;
@@ -568,6 +560,23 @@ function styleButton(k) {
       "linear-gradient(to bottom right, red, yellow)";
   }
 }
+
+// function updateToken(value) {
+//   let tokenElement = document.getElementById("tkIndicator");
+//   let tokenValue = parseInt(tokenElement.innerText) || 0;
+//   tokenValue += value; // Add the provided value to the token
+//   tokenElement.innerText = tokenValue; // Update the token value on the UI
+// }
+
+function updateToken(value) {
+  let tokenElement = document.getElementById("tkIndicator");
+  let tokenValue = parseInt(tokenElement.innerText) || 0;
+  tokenValue += value; // Add the provided value to the token
+  // Ensure token value does not go below 0
+  tokenValue = Math.max(tokenValue, 0);
+  tokenElement.innerText = tokenValue; // Update the token value on the UI
+}
+
 
 //simulates the action of dice and also chance rotation.
 function diceAction() {
@@ -614,6 +623,8 @@ function diceAction() {
               ) {
                 playerObj["pid"] = i;
 
+                var token = 0;
+
                 // Display the question prompt before moving the piece
                 displayQuestion(function (isCorrect) {
                   if (isCorrect) {
@@ -626,9 +637,24 @@ function diceAction() {
                         nxt_id: chanceRotation(myid, data),
                       });
                     });
+                    updateToken(10);
+
+                    // document.getElementById("tkIndicator").innerText = token;
+                    // token += 10;
+                    // console.log("right", token);
                   } else {
                     // return 0;
-                    alert("Wrong Answer! You Will Go Ahed By Only 1 Step :(");
+                    // alert("Wrong Answer! You Will Go Ahed By Only 1 Step :(");
+                    // if (token <= 0) {
+                    //   console.log("token less than or equal to the 0");
+                    // } else {
+                    //   token -= 10;
+                    //   document.getElementById("tkIndicator").innerText = token;
+                    //   console.log("wrong", token);
+                    // }
+                    updateToken(-10);
+
+
 
                     socket.emit("randomelse", playerObj, function (data) {
                       styleButton(0);
@@ -1190,124 +1216,128 @@ const mcqQuestions = [
 
 
 
-async function displayQuestion(callback) {
-    try {
-      const resp = await fetch(
-        `https://the-trivia-api.com/v2/questions?limit=1&difficulties=easy&categories=${cat}`
-      );
-      const q = await resp.json();
-      const question = q[0].question["text"];
-      const answerOptions = [...q[0].incorrectAnswers, q[0].correctAnswer];
-  
-      // Create HTML for the question and options with radio buttons
-      let html = `<div>
-        <p style='font-size: 27px;'>${question}</p>`;
-  
-      // Add radio buttons for each option
-      answerOptions.forEach((option, index) => {
-        html += `<input type="radio" style='font-size: 27px;' id="option${index}" name="options" value="${option}">
-      <label style='font-size: 27px;' for="option${index}">${option}</label><br>`;
-      });
-  
-      html += `<button id="submit">Submit</button></div>`;
-  
-      // Create a modal or popup to display the HTML content
-      let modal = document.createElement("div");
-      modal.innerHTML = html;
-      modal.style.position = "fixed";
-      modal.style.top = "50%";
-      modal.style.left = "50%";
-      modal.style.transform = "translate(-50%, -50%)";
-      modal.style.backgroundColor = "white";
-      modal.style.padding = "20px";
-      modal.style.border = "2px solid black";
-      modal.style.boxShadow = "0 0 10px rgba(0, 0, 0, 0.5)";
-      modal.style.zIndex = "9999";
-      document.body.appendChild(modal);
-  
-      // Add event listener to handle form submission
-      modal.addEventListener("click", function (event) {
-        if (event.target.id === "submit") {
-          let selectedOption = document.querySelector(
-            'input[name="options"]:checked'
-          );
-          if (selectedOption) {
-            let isCorrect = selectedOption.value === q[0].correctAnswer;
-            callback(isCorrect);
-            modal.remove(); // Remove the modal after user submission
-          } else {
-            alert("Please select an option before submitting.");
-          }
-        }
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  }
-  
-
-// this is working perfectly do not remove this one ...
-// function displayQuestion(callback) {
-//     // Replace this with your actual question and options
-//     // let question = "What is the capital of France?";
-//     // let options = ["Paris", "London", "Berlin", "Madrid"];
-
-//     const randomIndex = Math.floor(Math.random() * mcqQuestions.length);
-//     const randomQuestion = mcqQuestions[randomIndex];
-
-//     // Extract question and options
-//     const question = randomQuestion.question;
-//     const options = randomQuestion.options;
+// async function displayQuestion(callback) {
+//     try {
+//       const resp = await fetch(
+//         `https://the-trivia-api.com/v2/questions?limit=1&difficulties=easy&categories=${cat}`
+//       );
+//       const q = await resp.json();
+//       const question = q[0].question["text"];
+//       const answerOptions = [...q[0].incorrectAnswers, q[0].correctAnswer];
 
 //       // Create HTML for the question and options with radio buttons
 //       let html = `<div>
-//       <p style='font-size: 27px;'>${question}</p>`;
+//         <p style='font-size: 27px;'>${question}</p>`;
 
-//     // Add radio buttons for each option
-//     options.forEach((option, index) => {
-//     html += `<input type="radio" style='font-size: 27px;' id="option${index}" name="options" value="${option}">
-//     <label style='font-size: 27px;' for="option${index}">${option}</label><br>`;
-//     });
+//       // Add radio buttons for each option
+//       answerOptions.forEach((option, index) => {
+//         html += `<input type="radio" style='font-size: 27px;' id="option${index}" name="options" value="${option}">
+//       <label style='font-size: 27px;' for="option${index}">${option}</label><br>`;
+//       });
 
-//     html += `<button id="submit">Submit</button></div>`;
+//       html += `<button id="submit">Submit</button></div>`;
 
-//     // Create a modal or popup to display the HTML content
-//     let modal = document.createElement('div');
-//     modal.innerHTML = html;
-//     modal.style.position = 'fixed';
-//     modal.style.top = '50%';
-//     modal.style.left = '50%';
-//     modal.style.transform = 'translate(-50%, -50%)';
-//     modal.style.backgroundColor = 'white';
-//     modal.style.padding = '20px';
-//     modal.style.border = '2px solid black';
-//     modal.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.5)';
-//     modal.style.zIndex = '9999';
-//     document.body.appendChild(modal);
+//       // Create a modal or popup to display the HTML content
+//       let modal = document.createElement("div");
+//       modal.innerHTML = html;
+//       modal.style.position = "fixed";
+//       modal.style.top = "50%";
+//       modal.style.left = "50%";
+//       modal.style.transform = "translate(-50%, -50%)";
+//       modal.style.backgroundColor = "white";
+//       modal.style.padding = "20px";
+//       modal.style.border = "2px solid black";
+//       modal.style.boxShadow = "0 0 10px rgba(0, 0, 0, 0.5)";
+//       modal.style.zIndex = "9999";
+//       document.body.appendChild(modal);
 
-//     // Add event listener to handle form submission
-//     modal.addEventListener('click', function(event) {
-//     if (event.target.id === 'submit') {
-//     let selectedOption = document.querySelector('input[name="options"]:checked');
-//     if (selectedOption) {
-//     let isCorrect = selectedOption.value === options[0];
-//     callback(isCorrect);
-//     modal.remove(); // Remove the modal after user submission
-//     } else {
-//     alert('Please select an option before submitting.');
+//       // Add event listener to handle form submission
+//       modal.addEventListener("click", function (event) {
+//         if (event.target.id === "submit") {
+//           let selectedOption = document.querySelector(
+//             'input[name="options"]:checked'
+//           );
+//           if (selectedOption) {
+//             let isCorrect = selectedOption.value === q[0].correctAnswer;
+//             callback(isCorrect);
+//             modal.remove(); // Remove the modal after user submission
+//           } else {
+//             alert("Please select an option before submitting.");
+//           }
+//         }
+//       });
+//     } catch (err) {
+//       console.log(err);
 //     }
-//     }
-//     });
+//   }
 
-//     // console.log(question1)
-//     // Show a modal or alert with the question and options
-//     // let answer = window.prompt(`${question}\nOptions: ${options.join(", ")}`);
 
-//     // const isCorrect = answer.toLocaleLowerCase() === options[0].toLocaleLowerCase();
+// // this is working perfectly do not remove this one ...
+function displayQuestion(callback) {
+  // Replace this with your actual question and options
+  // let question = "What is the capital of France?";
+  // let options = ["Paris", "London", "Berlin", "Madrid"];
 
-//     // Execute the callback with the user's answer
-//     // callback(isCorrect);
-// }
+  const randomIndex = Math.floor(Math.random() * mcqQuestions.length);
+  const randomQuestion = mcqQuestions[randomIndex];
+
+  // Extract question and options
+  const question = randomQuestion.question;
+  const options = randomQuestion.options;
+  const correctAnswer = randomQuestion.correctAnswer;
+  console.log("corect answer is ", correctAnswer);
+
+  // Create HTML for the question and options with radio buttons
+  let html = `<div>
+      <p style='font-size: 27px;'>${question}</p>`;
+
+  // Add radio buttons for each option
+  options.forEach((option, index) => {
+    html += `<input type="radio" style='font-size: 27px;' id="option${index}" name="options" value="${option}">
+    <label style='font-size: 27px;' for="option${index}">${option}</label><br>`;
+  });
+
+  html += `<button id="submit">Submit</button></div>`;
+
+  // Create a modal or popup to display the HTML content
+  let modal = document.createElement('div');
+  modal.innerHTML = html;
+  modal.style.position = 'fixed';
+  modal.style.top = '50%';
+  modal.style.left = '50%';
+  modal.style.transform = 'translate(-50%, -50%)';
+  modal.style.backgroundColor = 'white';
+  modal.style.padding = '20px';
+  modal.style.border = '2px solid black';
+  modal.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.5)';
+  modal.style.zIndex = '9999';
+  document.body.appendChild(modal);
+
+  // Add event listener to handle form submission
+  modal.addEventListener('click', function (event) {
+    if (event.target.id === 'submit') {
+      let selectedOption = document.querySelector('input[name="options"]:checked');
+      if (selectedOption) {
+        let userAnswer = selectedOption.value; // Extract the selected option
+        let isCorrect = userAnswer[1] === correctAnswer; // Check if the answer is correct
+        console.log("is user answer that is ", userAnswer[1])
+        callback(isCorrect);
+        modal.remove(); // Remove the modal after user submission
+      } else {
+        alert('Please select an option before submitting.');
+      }
+    }
+  });
+
+  console.log(question1)
+  // Show a modal or alert with the question and options
+  let answer = window.prompt(`${question}\nOptions: ${options.join(", ")}`);
+
+  const isCorrect = answer.toLocaleLowerCase() === options[0].toLocaleLowerCase();
+
+  // Execute the callback with the user's answer
+  callback(isCorrect);
+}
 
 //Initialise the game with the one who created the room.
 function StartTheGame() {
